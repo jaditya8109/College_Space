@@ -15,9 +15,11 @@ export default function Feed({username}) {
   useEffect(() => {
     const fetchPost = async () => {
       const res = username
-       ? await axios.get("post/profile/" + username)
-       : await axios.get("post/timeline/" + user._id);
-      setPosts(res.data)
+       ? await axios.get("/post/profile/" + username)
+       : await axios.get("/post/timeline/" + user._id);
+      setPosts(res.data.sort((p1, p2)=>{
+        return new Date(p2.createdAt) - new Date(p1.createdAt);
+      }))
     }
     fetchPost();
   }, [username, user._id] )
