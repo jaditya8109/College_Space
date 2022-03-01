@@ -30,6 +30,9 @@ export default function Messenger() {
     });
   }, []);
 
+  // if I have opened A's convo and B send me message then B's 
+  // message shouldnt come in A's convo
+  
   useEffect(() => {
     arrivalMessage &&
       currentChat?.members.includes(arrivalMessage.sender) &&
@@ -83,7 +86,7 @@ export default function Messenger() {
 
     socket.current.emit("sendMessage", {
       senderId: user._id,
-      receiverId,
+      receiverId: receiverId,
       text: newMessage,
     });
 
